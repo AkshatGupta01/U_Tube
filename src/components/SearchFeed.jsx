@@ -10,7 +10,9 @@ const SearchFeed = () => {
 
   useEffect(() => {
     fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then((data) =>
-      setVideos(data.items)
+      setVideos(data.items.filter(item => {
+        if(!("playlistId" in item.id)) return item;
+      }))
     );
   }, [searchTerm]);
 
